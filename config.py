@@ -4,9 +4,10 @@ OPENAI_API_BASE = os.getenv("OPENAI_API_BASE", "https://api.deepinfra.com/v1/ope
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 LLM_MODEL = os.getenv("LLM_MODEL", "meta-llama/Meta-Llama-3.1-8B-Instruct")
 
-STT_API_URL = os.getenv("STT_API_URL", "https://api.deepinfra.com/v1/inference/openai/whisper-large-v3-turbo")
-TTS_API_URL = os.getenv("TTS_API_URL", "https://api.deepinfra.com/v1/inference/hexgrad/Kokoro-82M")
-TTS_SAMPLE_RATE = int(os.getenv("TTS_SAMPLE_RATE", "24000"))
+ASR_MODEL = os.getenv("ASR_MODEL", "nvidia/Nemo3-ASR-Streaming")
+ASR_URL = f"wss://api.deepinfra.com/v1/realtime?model={ASR_MODEL}"
 
-SPEECH_RMS = int(os.getenv("SPEECH_RMS", "500"))
-END_SILENCE_FRAMES = int(os.getenv("END_SILENCE_FRAMES", "15"))
+TTS_URL = os.getenv("TTS_URL", "https://api.deepinfra.com/v1/text-to-speech")
+TTS_MODEL = os.getenv("TTS_MODEL", "hexgrad/Kokoro-82M")
+TTS_VOICE = os.getenv("TTS_VOICE", "af_bella")
+TTS_SAMPLE_RATE = int(os.getenv("TTS_SAMPLE_RATE", "24000"))
