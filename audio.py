@@ -1,12 +1,14 @@
 import audioop
 import base64
 import json
+import logging
 
 import httpx
 import websockets
 
 from config import ASR_URL, OPENAI_API_KEY, TTS_MODEL, TTS_SAMPLE_RATE, TTS_URL, TTS_VOICE
 
+log = logging.getLogger("agent")
 auth = {"Authorization": f"Bearer {OPENAI_API_KEY}"}
 http = httpx.AsyncClient(headers=auth, timeout=30)
 
@@ -28,7 +30,9 @@ async def transcribe_audio(asr, base64_chunk):
 async def read_transcripts(asr):
     async for raw in asr:
         event = json.loads(raw)
-        if event["type"] == "conversation.item.input_audio_transcription.delta":
+        if event["type"] == "error":
+            log.error("asr error: %s", event)
+        elif event["type"] == "conversation.item.input_audio_transcription.delta":
             yield "delta", event.get("transcript", "")
         elif event["type"] == "conversation.item.input_audio_transcription.completed":
             yield "final", event.get("transcript", "")
