@@ -3,3 +3,5 @@ uvicorn[standard]
 httpx
 openai
 websockets>=14
+python-dotenv
+audioop-lts; python_version >= "3.13"
